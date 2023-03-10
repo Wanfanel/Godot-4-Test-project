@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://cvurag6x2xjv7"]
+
+[ext_resource type="Script" path="res://Scripts/Player.cs" id="1_5dp0j"]
+[ext_resource type="Texture2D" uid="uid://bl7docgiq2074" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" id="1_t4xfx"]
+[ext_resource type="Texture2D" uid="uid://2yy16h4lx36b" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Actions.png" id="3_trtol"]
+[ext_resource type="Script" path="res://Scripts/PlayerRaycast.cs" id="4_gnyqm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uswtg"]
+radius = 3.0
+height = 8.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("basicSprite", "actionSprite")]
+y_sort_enabled = true
+collision_mask = 3
+collision_priority = 100.0
+floor_stop_on_slope = false
+floor_block_on_wall = false
+safe_margin = 0.001
+script = ExtResource("1_5dp0j")
+basicSprite = NodePath("BasicSprite")
+actionSprite = NodePath("ActionSprite")
+activeTool = 2
+metadata/speed = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_uswtg")
+
+[node name="BasicSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_t4xfx")
+hframes = 4
+vframes = 4
+
+[node name="ActionSprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_trtol")
+hframes = 2
+vframes = 12
+
+[node name="PlayerRaycast" type="Node2D" parent="."]
+position = Vector2(0, 5)
+script = ExtResource("4_gnyqm")

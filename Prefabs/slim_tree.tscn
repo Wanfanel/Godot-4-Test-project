@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dicpqy4yhbnwu"]
+
+[ext_resource type="Script" path="res://Prefabs/slim_tree.cs" id="1_2dsrk"]
+[ext_resource type="Texture2D" uid="uid://bk8r5mcf8ub0o" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/Basic Grass Biom things 1.png" id="1_lak2s"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uumxt"]
+radius = 3.0
+height = 10.0
+
+[node name="Slim Tree" type="Node2D"]
+script = ExtResource("1_2dsrk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture = ExtResource("1_lak2s")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 32)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 9)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_uumxt")
