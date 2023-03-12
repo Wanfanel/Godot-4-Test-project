@@ -49,13 +49,19 @@ public partial class Player : CharacterBody2D
 
             else if (Input.IsActionPressed("pickup"))
                 input_action = Action.Pickup;
+            else
+                input_action = Action.None;
 
-            if (direction != Vector2.Zero && input_action == Action.None)
-                velocity = direction * Speed;
+
         }
         else
-        {
             input_action = Action.None;
+
+        if (direction != Vector2.Zero && input_action == Action.None)
+            velocity = direction * Speed;
+        else
+        {
+
             velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
             velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
         }
@@ -69,9 +75,9 @@ public partial class Player : CharacterBody2D
 
         frame_X = (int)Time.GetTicksMsec() % 500 > 250 ? 1 : 0;
 
-        basicSprite.Visible = input_action == Action.None;
+        basicSprite.Visible = (input_action != Action.Action);
 
-        if (direction != Vector2.Zero && input_action == Action.None)
+        if (direction != Vector2.Zero && input_action != Action.Action)
         {
             frame_X += 2;
             if (direction.X > 0)
@@ -85,7 +91,7 @@ public partial class Player : CharacterBody2D
         }
         if (actionSprite != null)
         {
-            actionSprite.Visible = input_action == Action.Action;
+            actionSprite.Visible = (input_action == Action.Action);
             if (input_action == Action.Action)
             {
                 activeSprite = actionSprite;
