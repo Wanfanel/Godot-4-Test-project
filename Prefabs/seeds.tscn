@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8iu7gq4uikkn"]
+
+[ext_resource type="Texture2D" uid="uid://cde6brqbwn2gu" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/Basic Plants.png" id="1_q53of"]
+
+[node name="Seeds" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_q53of")
+vframes = 2
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 32)

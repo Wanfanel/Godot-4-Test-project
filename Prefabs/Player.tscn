@@ -13,9 +13,10 @@ height = 8.0
 y_sort_enabled = true
 collision_mask = 3
 collision_priority = 100.0
+motion_mode = 1
 floor_stop_on_slope = false
 floor_block_on_wall = false
-safe_margin = 0.001
+safe_margin = 1.0
 script = ExtResource("1_5dp0j")
 basicSprite = NodePath("BasicSprite")
 actionSprite = NodePath("ActionSprite")
@@ -39,6 +40,7 @@ texture = ExtResource("3_trtol")
 hframes = 2
 vframes = 12
 
-[node name="PlayerRaycast" type="Node2D" parent="."]
+[node name="PlayerRaycast" type="Node2D" parent="." node_paths=PackedStringArray("player")]
 position = Vector2(0, 5)
 script = ExtResource("4_gnyqm")
+player = NodePath("..")

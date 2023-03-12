@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvfejcl7ptcdg"]
+
+[ext_resource type="Texture2D" uid="uid://cmacx0jwocdra" path="res://Textures/Icons/Fruts/Apple.tres" id="1_yfjmb"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 20.0
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 18.0
+offset_bottom = 18.0
+texture = ExtResource("1_yfjmb")

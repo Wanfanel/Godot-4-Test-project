@@ -2,8 +2,15 @@ namespace Moreus;
 
 public enum Tool
 {
-    Hoe,
+    Scythe,
     Axe,
     Watering_Can
 
+}
+
+public enum Action{
+    None,
+    Action,
+    Item,
+    Pickup
 }

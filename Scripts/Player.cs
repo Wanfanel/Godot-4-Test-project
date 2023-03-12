@@ -7,30 +7,58 @@ public partial class Player : CharacterBody2D
     [Export] public float Speed { get; set; } = 100.0f;
     [Export] public Sprite2D basicSprite;
     [Export] public Sprite2D actionSprite;
-    [Export] public Tool activeTool = Tool.Hoe;
+    [Export] public Tool activeTool = Tool.Scythe;
+
     private Sprite2D activeSprite;
     private Vector2 direction;
-    private Boolean input_action;
+    public Action input_action;
+
     private int frame_X, frame_Y, frame_offset;
+
+    public Vector2 Face
+    {
+        get
+        {
+            switch (frame_Y)
+            {
+                case 0:
+                    return Vector2.Down;
+                case 1:
+                    return Vector2.Up;
+                case 2:
+                    return Vector2.Left;
+                case 3:
+                    return Vector2.Right;
+            }
+            return Vector2.Zero;
+        }
+    }
 
     public void GetInput()
     {
-
         Vector2 velocity = Velocity;
 
-        input_action = Input.IsActionPressed("ui_select");
         direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-        if (direction != Vector2.Zero && !input_action)
+        if (Input.IsAnythingPressed())
         {
-            velocity = direction * Speed;
+            if (Input.IsActionPressed("ui_select"))
+                input_action = Action.Action;
 
+            else if (Input.IsActionPressed("item"))
+                input_action = Action.Item;
+
+            else if (Input.IsActionPressed("pickup"))
+                input_action = Action.Pickup;
+
+            if (direction != Vector2.Zero && input_action == Action.None)
+                velocity = direction * Speed;
         }
         else
         {
+            input_action = Action.None;
             velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
             velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
         }
-
         Velocity = velocity;
     }
 
@@ -41,9 +69,9 @@ public partial class Player : CharacterBody2D
 
         frame_X = (int)Time.GetTicksMsec() % 500 > 250 ? 1 : 0;
 
-        basicSprite.Visible = !input_action;
+        basicSprite.Visible = input_action == Action.None;
 
-        if (direction != Vector2.Zero && !input_action)
+        if (direction != Vector2.Zero && input_action == Action.None)
         {
             frame_X += 2;
             if (direction.X > 0)
@@ -57,13 +85,13 @@ public partial class Player : CharacterBody2D
         }
         if (actionSprite != null)
         {
-            actionSprite.Visible = input_action;
-            if (input_action)
+            actionSprite.Visible = input_action == Action.Action;
+            if (input_action == Action.Action)
             {
                 activeSprite = actionSprite;
                 switch (activeTool)
                 {
-                    case Tool.Hoe:
+                    case Tool.Scythe:
                         frame_offset = 0;
                         break;
                     case Tool.Axe:

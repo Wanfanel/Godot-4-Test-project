@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbc8metxhm3bq"]
+
+[ext_resource type="Texture2D" uid="uid://bk8r5mcf8ub0o" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/Basic Grass Biom things 1.png" id="1_ik2pm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u518b"]
+radius = 5.0
+height = 16.0
+
+[node name="Raspberry Bush" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ik2pm")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(0, 48, 32, 16)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_u518b")

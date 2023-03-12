@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://c671pn84r1vim"]
+
+[ext_resource type="Texture2D" uid="uid://cde6brqbwn2gu" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/Basic Plants.png" id="1_d4j3n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qoyjc"]
+size = Vector2(5.99127, 13.002)
+
+[node name="Crops" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_d4j3n")
+hframes = 4
+vframes = 2
+region_enabled = true
+region_rect = Rect2(16, 0, 64, 32)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-0.5, 3.99564)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_qoyjc")

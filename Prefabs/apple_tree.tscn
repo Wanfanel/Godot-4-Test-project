@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctfvndubink1u"]
+
+[ext_resource type="Texture2D" uid="uid://bk8r5mcf8ub0o" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/Basic Grass Biom things 1.png" id="1_nsgsk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r5x53"]
+radius = 3.0
+height = 10.0
+
+[node name="Apple_Tree" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_nsgsk")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(16, 0, 64, 32)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/StaticBody2D"]
+position = Vector2(0, 12)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_r5x53")
