@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://d14ql4hnh0n2e"]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://Scripts/HUD.cs" id="1_d0ngo"]
-[ext_resource type="Texture2D" uid="uid://cmacx0jwocdra" path="res://Textures/Icons/Fruts/Apple.tres" id="1_yfjmb"]
+[ext_resource type="Texture2D" uid="uid://cmacx0jwocdra" path="res://Textures/Icons/Fruits/Apple.tres" id="1_yfjmb"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
