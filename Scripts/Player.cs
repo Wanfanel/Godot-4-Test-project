@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 namespace Moreus;
-public partial class Player : CharacterBody2D
+public sealed partial class Player : CharacterBody2D
 {
     [Export] public float Speed { get; set; } = 100.0f;
     [Export] public Sprite2D basicSprite;
@@ -12,6 +12,8 @@ public partial class Player : CharacterBody2D
     private Sprite2D activeSprite;
     private Vector2 direction;
     public Action input_action;
+    public Item item_hand = null;
+    [Export] public HUD hud;
 
     private int frame_X, frame_Y, frame_offset;
 

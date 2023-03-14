@@ -1,17 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvfejcl7ptcdg"]
+[gd_scene load_steps=3 format=3 uid="uid://d14ql4hnh0n2e"]
 
+[ext_resource type="Script" path="res://Scripts/HUD.cs" id="1_d0ngo"]
 [ext_resource type="Texture2D" uid="uid://cmacx0jwocdra" path="res://Textures/Icons/Fruts/Apple.tres" id="1_yfjmb"]
 
-[node name="Control" type="Control"]
+[node name="HUD" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_d0ngo")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
 offset_right = 20.0
 offset_bottom = 20.0
 
-[node name="TextureRect" type="TextureRect" parent="Panel"]
+[node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 2.0
 offset_top = 2.0

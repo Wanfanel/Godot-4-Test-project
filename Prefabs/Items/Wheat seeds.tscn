@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8iu7gq4uikkn"]
+
+[ext_resource type="Script" path="res://Scripts/Moreus/Item.cs" id="1_wc21x"]
+[ext_resource type="Texture2D" uid="uid://bn0qbibat0njb" path="res://Textures/Icons/Plant_Items/Wheat_seeds.tres" id="2_adaqk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tysei"]
+
+[node name="Wheat Seeds" type="Node2D"]
+script = ExtResource("1_wc21x")
+ItemIcon = ExtResource("2_adaqk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_adaqk")
+vframes = 2
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 32)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_tysei")

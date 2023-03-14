@@ -10,7 +10,8 @@ radius = 3.0
 height = 8.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("basicSprite", "actionSprite")]
-y_sort_enabled = true
+z_as_relative = false
+position = Vector2(0, -8)
 collision_mask = 3
 collision_priority = 100.0
 motion_mode = 1

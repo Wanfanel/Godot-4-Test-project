@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bem0bq1ywke0l"]
 
-[ext_resource type="Script" path="res://Scripts/slim_tree.cs" id="1_2dsrk"]
+[ext_resource type="Script" path="res://Scripts/Slim_tree.cs" id="1_blgvo"]
 [ext_resource type="Texture2D" uid="uid://bk8r5mcf8ub0o" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Objects/Basic Grass Biom things 1.png" id="1_lak2s"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uumxt"]
@@ -8,7 +8,7 @@ radius = 3.0
 height = 10.0
 
 [node name="Slim Tree" type="Node2D"]
-script = ExtResource("1_2dsrk")
+script = ExtResource("1_blgvo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true

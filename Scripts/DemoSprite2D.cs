@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class DemoSprite2D : Node2D
+public sealed partial class DemoSprite2D : Node2D
 {
 
 	private int Speed = 400;
