@@ -49,25 +49,29 @@ public sealed partial class PlayerRaycast : Node2D
 
     private void ShapeCast()
     {
-        var query = new PhysicsShapeQueryParameters2D();
-        query.Shape = new RectangleShape2D { Size = new Vector2(14, 14) };
-        query.Transform = new Transform2D(0f, new Vector2(player.GlobalPosition.X - offset_X + 8, player.GlobalPosition.Y + 13 - offset_Y));
-        query.CollideWithAreas = true;
-        query.Exclude = new Godot.Collections.Array<Rid> { player.GetRid() };
+        var query = new PhysicsShapeQueryParameters2D
+        {
+            Shape = new RectangleShape2D { Size = new Vector2(14, 14) },
+            Transform = new Transform2D(0f, new Vector2(player.GlobalPosition.X - offset_X + 8, player.GlobalPosition.Y + 13 - offset_Y)),
+            CollideWithAreas = true,
+            Exclude = new Godot.Collections.Array<Rid> { player.GetRid() }
+        };
+
         var result = spaceState.IntersectShape(query);
+
         if (result.Count > 0)
         {
-            //  string message = "Shape Collide with: ";
+            // string message = "Shape Collide with: ";
             // Node2D collider;
             // for (int i = 0; i < result.Count; i++)
             // {
             //     collider = (Node2D)result[i]["collider"];
             //     message += collider.GetOwnerOrNull<Node>().Name + ", ";
-            //}
+            // }
 
-
-            //  GD.Print(message);
+            // GD.Print(message);
         }
+
         else if (result.Count == 0 && player.item_hand != null && player.input_action == Action.Item)
         {
             player.item_hand.Show();
@@ -82,23 +86,30 @@ public sealed partial class PlayerRaycast : Node2D
     {
         if (player.input_action != Action.None)
         {
-            queryParameters2D = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition + player.Face * range);
-            queryParameters2D.CollideWithAreas = true;
-            queryParameters2D.HitFromInside = true;
-            queryParameters2D.Exclude = new Godot.Collections.Array<Rid> { player.GetRid() };
+            queryParameters2D = new()
+            {
+                From = GlobalPosition,
+                To = GlobalPosition + player.Face * range,
+                CollisionMask = 4294967295,
+                CollideWithAreas = true,
+                CollideWithBodies = true,
+                HitFromInside = true,
+                Exclude = new Godot.Collections.Array<Rid> { player.GetRid() }
+
+            };
             var result = spaceState.IntersectRay(queryParameters2D);
             if (result.Count > 0)
             {
                 Node2D collider = (Node2D)result["collider"];
                 if (player.input_action == Action.Action)
-                    if (collider.GetOwnerOrNull<Node>() is IDamageable<float>)
-                        ((IDamageable<float>)collider.GetOwnerOrNull<Node>()).Damage(1f);
-                    else if (collider.GetOwnerOrNull<Node>() is Item)
+                    if (collider.GetOwnerOrNull<Node>() is IDamageable<float> damageable)
+                        damageable.Damage(1f);
+                    else if (collider.GetOwnerOrNull<Node>() is Item item)
                     {
                         if (player.item_hand == null)
                         {
-                            player.item_hand = (Item)collider.GetOwnerOrNull<Node>();
-                            player.hud.ItemIcon = (Texture2D)player.item_hand.ItemIcon;
+                            player.item_hand = item;
+                            player.hud.ItemIcon = player.item_hand.ItemIcon;
                             player.item_hand.Hide();
 
                             player.item_hand.DisableCollisions = true;

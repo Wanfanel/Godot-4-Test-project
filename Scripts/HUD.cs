@@ -1,17 +1,16 @@
 using Godot;
-using System;
-
+namespace Moreus;
 public sealed partial class HUD : Control
 {
-     [Export]
+    [Export]
     public Texture2D ItemIcon
     {
         get
         {
             var childlist = GetChildren(true);
             foreach (Node node in childlist)
-                if (node is TextureRect)
-                    return ((TextureRect)node).Texture;
+                if (node is TextureRect textureRect)
+                    return textureRect.Texture;
             return null;
         }
         set
@@ -19,8 +18,10 @@ public sealed partial class HUD : Control
 
             var childlist = GetChildren(true);
             foreach (Node node in childlist)
-                if (node is TextureRect)
-                    ((TextureRect)node).Texture = value;
+                if (node is TextureRect textureRect)
+                    textureRect.Texture = value;
+
+
 
         }
     }

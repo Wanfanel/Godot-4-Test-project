@@ -2,3 +2,5 @@
 .godot/
 # Windows specific ignores
 desktop.ini
+Godot4 Demo.csproj
+Godot4 Demo.csproj*

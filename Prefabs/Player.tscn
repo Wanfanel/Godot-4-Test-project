@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cvurag6x2xjv7"]
+[gd_scene load_steps=8 format=3 uid="uid://emqulvaibnyn"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_5dp0j"]
+[ext_resource type="Shader" path="res://Shaders/Second.gdshader" id="1_gtl0l"]
 [ext_resource type="Texture2D" uid="uid://bl7docgiq2074" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" id="1_t4xfx"]
 [ext_resource type="Texture2D" uid="uid://2yy16h4lx36b" path="res://Sprites/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Actions.png" id="3_trtol"]
 [ext_resource type="Script" path="res://Scripts/PlayerRaycast.cs" id="4_gnyqm"]
@@ -8,6 +9,9 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uswtg"]
 radius = 3.0
 height = 8.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tnqte"]
+shader = ExtResource("1_gtl0l")
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("basicSprite", "actionSprite")]
 z_as_relative = false
@@ -31,6 +35,7 @@ shape = SubResource("CapsuleShape2D_uswtg")
 
 [node name="BasicSprite" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_tnqte")
 texture = ExtResource("1_t4xfx")
 hframes = 4
 vframes = 4

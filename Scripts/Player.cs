@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace Moreus;
 public sealed partial class Player : CharacterBody2D
@@ -21,18 +20,15 @@ public sealed partial class Player : CharacterBody2D
     {
         get
         {
-            switch (frame_Y)
+            return frame_Y switch
             {
-                case 0:
-                    return Vector2.Down;
-                case 1:
-                    return Vector2.Up;
-                case 2:
-                    return Vector2.Left;
-                case 3:
-                    return Vector2.Right;
-            }
-            return Vector2.Zero;
+                0 => Vector2.Down,
+                1 => Vector2.Up,
+                2 => Vector2.Left,
+                3 => Vector2.Right,
+                _ => Vector2.Zero,
+            };
+
         }
     }
 
@@ -77,18 +73,18 @@ public sealed partial class Player : CharacterBody2D
 
         frame_X = (int)Time.GetTicksMsec() % 500 > 250 ? 1 : 0;
 
-        basicSprite.Visible = (input_action != Action.Action);
+        basicSprite.Visible = input_action != Action.Action;
 
         if (direction != Vector2.Zero && input_action != Action.Action)
         {
             frame_X += 2;
-            if (direction.X > 0)
+            if (direction.X > 0.1)
                 frame_Y = 3;
-            if (direction.X < 0)
+            else if (direction.X < -0.1)
                 frame_Y = 2;
-            if (direction.Y > 0)
+            else if (direction.Y > 0.1)
                 frame_Y = 0;
-            if (direction.Y < 0)
+            else if (direction.Y < -0.1)
                 frame_Y = 1;
         }
         if (actionSprite != null)

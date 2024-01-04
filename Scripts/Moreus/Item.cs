@@ -11,8 +11,8 @@ public partial class Item : Node2D, IPickable
         {
             var childlist = GetChildren();
             foreach (Node node in childlist)
-                if (node is Sprite2D)
-                    return ((Sprite2D)node).Texture;
+                if (node is Sprite2D sprite2D)
+                    return sprite2D.Texture;
             return null;
         }
         set
@@ -20,14 +20,14 @@ public partial class Item : Node2D, IPickable
 
             var childlist = GetChildren();
             foreach (Node node in childlist)
-                if (node is Sprite2D)
-                    ((Sprite2D)node).Texture = value;
+                if (node is Sprite2D sprite2D)
+                    sprite2D.Texture = value;
 
         }
     }
     [Export] public int maxStack = 99;
 
-    public bool DisableCollisions 
+    public bool DisableCollisions
     {
         get
         {
