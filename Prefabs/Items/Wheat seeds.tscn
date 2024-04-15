@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bn0qbibat0njb" path="res://Textures/Icons/Plant_Items/Wheat_seeds.tres" id="2_adaqk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tysei"]
-size = Vector2(16, 16)
+size = Vector2(12, 14)
 
 [node name="Wheat Seeds" type="Node2D"]
 script = ExtResource("1_wc21x")
