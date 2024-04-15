@@ -1,4 +1,4 @@
-# Godot-4.0-Test-project
+# Godot 4 Test-project
 
 This project is for me to test and learn Godot engine.
 
