@@ -8,7 +8,6 @@ public sealed partial class Player : CharacterBody2D
     [Export] public Sprite2D actionSprite;
     [Export] public Tool activeTool = Tool.Scythe;
 
-    private Sprite2D activeSprite;
     private Vector2 direction;
     public Action input_action;
     public Item item_hand = null;
@@ -16,105 +15,63 @@ public sealed partial class Player : CharacterBody2D
 
     private int frame_X, frame_Y, frame_offset;
 
-    public Vector2 Face
+    public Vector2 Face => frame_Y switch
     {
-        get
-        {
-            return frame_Y switch
-            {
-                0 => Vector2.Down,
-                1 => Vector2.Up,
-                2 => Vector2.Left,
-                3 => Vector2.Right,
-                _ => Vector2.Zero,
-            };
-
-        }
-    }
+        0 => Vector2.Down,
+        1 => Vector2.Up,
+        2 => Vector2.Left,
+        3 => Vector2.Right,
+        _ => Vector2.Zero,
+    };
 
     public void GetInput()
     {
-        Vector2 velocity = Velocity;
-
         direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-        if (Input.IsAnythingPressed())
+        input_action = Input.IsAnythingPressed() switch
         {
-            if (Input.IsActionPressed("ui_select"))
-                input_action = Action.Action;
+            true when Input.IsActionPressed("ui_select") => Action.Action,
+            true when Input.IsActionPressed("item") => Action.Item,
+            true when Input.IsActionPressed("pickup") => Action.Pickup,
+            _ => Action.None,
+        };
 
-            else if (Input.IsActionPressed("item"))
-                input_action = Action.Item;
-
-            else if (Input.IsActionPressed("pickup"))
-                input_action = Action.Pickup;
-            else
-                input_action = Action.None;
-
-
-        }
-        else
-            input_action = Action.None;
-
-        if (direction != Vector2.Zero && input_action == Action.None)
-            velocity = direction * Speed;
-        else
-        {
-
-            velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-            velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
-        }
-        Velocity = velocity;
+        Velocity = direction != Vector2.Zero && input_action == Action.None ? direction * Speed : new Vector2(Mathf.MoveToward(Velocity.X, 0, Speed), Mathf.MoveToward(Velocity.Y, 0, Speed));
     }
 
     public void Animate()
     {
-        if (!(basicSprite != null && actionSprite != null))
-            return;
+        if (basicSprite == null || actionSprite == null) return;
 
         frame_X = (int)Time.GetTicksMsec() % 500 > 250 ? 1 : 0;
-
         basicSprite.Visible = input_action != Action.Action;
 
         if (direction != Vector2.Zero && input_action != Action.Action)
         {
             frame_X += 2;
-            if (direction.X > 0.1)
-                frame_Y = 3;
-            else if (direction.X < -0.1)
-                frame_Y = 2;
-            else if (direction.Y > 0.1)
-                frame_Y = 0;
-            else if (direction.Y < -0.1)
-                frame_Y = 1;
+            frame_Y = direction.X > 0.1 ? 3 : direction.X < -0.1 ? 2 : direction.Y > 0.1 ? 0 : 1;
         }
+
         if (actionSprite != null)
         {
-            actionSprite.Visible = (input_action == Action.Action);
+            actionSprite.Visible = input_action == Action.Action;
             if (input_action == Action.Action)
             {
-                activeSprite = actionSprite;
-                switch (activeTool)
+                frame_offset = activeTool switch
                 {
-                    case Tool.Scythe:
-                        frame_offset = 0;
-                        break;
-                    case Tool.Axe:
-                        frame_offset = 4;
-                        break;
-                    case Tool.Watering_Can:
-                        frame_offset = 8;
-                        break;
-                }
+                    Tool.Scythe => 0,
+                    Tool.Axe => 4,
+                    Tool.Watering_Can => 8,
+                    _ => frame_offset,
+                };
             }
             else
             {
-                activeSprite = basicSprite;
                 frame_offset = 0;
             }
         }
-        activeSprite.FrameCoords = new Vector2I(frame_X, frame_Y + frame_offset);
-
+        (input_action == Action.Action ? actionSprite : basicSprite).FrameCoords = new Vector2I(frame_X, frame_Y + frame_offset);
     }
+
     public override void _PhysicsProcess(double delta)
     {
         GetInput();
