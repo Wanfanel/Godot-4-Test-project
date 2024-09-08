@@ -77,7 +77,7 @@ public sealed partial class PlayerRaycast : Node2D
             Shape = new RectangleShape2D { Size = new Vector2(14, 14) },
             Transform = new Transform2D(0f, new Vector2(player.GlobalPosition.X - offset_X + 8, player.GlobalPosition.Y + 13 - offset_Y)),
             CollideWithAreas = true,
-            Exclude = new Godot.Collections.Array<Rid> { player.GetRid() }
+            Exclude = [player.GetRid()]
         };
 
         return spaceState.IntersectShape(query);
@@ -94,7 +94,7 @@ public sealed partial class PlayerRaycast : Node2D
                 CollideWithAreas = true,
                 CollideWithBodies = true,
                 HitFromInside = true,
-                Exclude = new Godot.Collections.Array<Rid> { player.GetRid() }
+                Exclude = [player.GetRid()]
 
             };
             var result = spaceState.IntersectRay(queryParameters2D);
