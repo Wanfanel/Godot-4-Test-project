@@ -42,12 +42,35 @@ public sealed partial class PlayerRaycast : Node2D
         if (!(player != null))
             return;
         UpdateOffset();
-        ShapeCast();
+        if (player.item_hand != null && player.input_action == Action.Item)
+        {
+            var result = ShapeCast();
+            if (result.Count > 0)
+            {
+                // string message = "Shape Collide with: ";
+                // Node2D collider;
+                // for (int i = 0; i < result.Count; i++)
+                // {
+                //     collider = (Node2D)result[i]["collider"];
+                //     message += collider.GetOwnerOrNull<Node>().Name + ", ";
+                // }
+
+                // GD.Print(message);
+            }
+            else if (result.Count == 0)
+            {
+                player.item_hand.Show();
+                player.item_hand.Transform = new Transform2D(0f, new Vector2(player.GlobalPosition.X - offset_X + 8, player.GlobalPosition.Y + 13 - offset_Y));
+                player.item_hand.DisableCollisions = false;
+                player.item_hand = null;
+                player.hud.ItemIcon = null;
+            }
+        }
         Raycast();
         QueueRedraw();
     }
 
-    private void ShapeCast()
+    private Godot.Collections.Array<Godot.Collections.Dictionary> ShapeCast()
     {
         var query = new PhysicsShapeQueryParameters2D
         {
@@ -57,30 +80,7 @@ public sealed partial class PlayerRaycast : Node2D
             Exclude = new Godot.Collections.Array<Rid> { player.GetRid() }
         };
 
-        var result = spaceState.IntersectShape(query);
-
-        if (result.Count > 0)
-        {
-            // string message = "Shape Collide with: ";
-            // Node2D collider;
-            // for (int i = 0; i < result.Count; i++)
-            // {
-            //     collider = (Node2D)result[i]["collider"];
-            //     message += collider.GetOwnerOrNull<Node>().Name + ", ";
-            // }
-
-            // GD.Print(message);
-        }
-
-        else if (result.Count == 0 && player.item_hand != null && player.input_action == Action.Item)
-        {
-            player.item_hand.Show();
-            player.item_hand.Transform = query.Transform;
-            player.item_hand.DisableCollisions = false;
-            player.item_hand = null;
-            player.hud.ItemIcon = null;
-        }
-
+        return spaceState.IntersectShape(query);
     }
     private void Raycast()
     {

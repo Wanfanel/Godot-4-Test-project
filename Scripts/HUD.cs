@@ -1,5 +1,6 @@
 using Godot;
 namespace Moreus;
+[Tool]
 public sealed partial class HUD : Control
 {
     [Export]
